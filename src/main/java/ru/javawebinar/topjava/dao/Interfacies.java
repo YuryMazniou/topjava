@@ -10,4 +10,5 @@ public interface Interfacies {
     void createMeal(LocalDateTime dateTime,String description,int calories);
     void delete(int id);
     List<Meal> getListOfMeals();
+    Meal getMeal(int id);
 }

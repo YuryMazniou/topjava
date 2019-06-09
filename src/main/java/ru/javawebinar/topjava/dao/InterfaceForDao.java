@@ -23,6 +23,11 @@ public class InterfaceForDao implements Interfacies {
     }
 
     @Override
+    public Meal getMeal(int id) {
+        return storage.getMeal(id);
+    }
+
+    @Override
     public List<Meal> getListOfMeals() {
         return storage.getListOfMeals();
     }

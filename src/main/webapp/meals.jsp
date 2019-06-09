@@ -19,7 +19,7 @@
 <c:forEach var="num" items="${list}">
     <c:if test="${num.excess==true}">
         <tr align="center" bgcolor="red">
-            <td>${num.count}</td>
+            <td>${num.id}</td>
             <fmt:parseDate value="${num.dateTime}" pattern="yyyy-MM-dd" var="parsedDateTime" type="date" />
             <td><fmt:formatDate pattern="dd.MM.yyyy" value="${ parsedDateTime }" /></td>
             <td>${num.description}</td>
@@ -28,7 +28,7 @@
     </c:if>
     <c:if test="${num.excess==false}">
         <tr align="center">
-            <td>${num.count}</td>
+            <td>${num.id}</td>
             <fmt:parseDate value="${num.dateTime}" pattern="yyyy-MM-dd" var="parsedDateTime" type="date" />
             <td><fmt:formatDate pattern="dd.MM.yyyy" value="${ parsedDateTime }" /></td>
             <td>${num.description}</td>

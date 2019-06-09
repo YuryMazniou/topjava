@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.web;
 
 import org.slf4j.Logger;
+import ru.javawebinar.topjava.dao.InterfaceForDao;
 import ru.javawebinar.topjava.dao.Interfacies;
 import ru.javawebinar.topjava.dao.StorageMeals;
 import ru.javawebinar.topjava.model.Meal;
@@ -19,7 +20,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 public class MealServlet extends HttpServlet {
     private static final Logger log = getLogger(MealServlet.class);
-    private static Interfacies storage=new StorageMeals();
+    private static Interfacies storage=new InterfaceForDao();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.debug("redirect to meal");

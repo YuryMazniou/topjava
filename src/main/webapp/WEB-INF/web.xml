@@ -33,5 +33,14 @@
         <servlet-name>cruDmealsServlet</servlet-name>
         <url-pattern>/listOfMeals</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>mealsServlet</servlet-name>
+        <servlet-class>ru.javawebinar.topjava.web.CRUDmealsServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>mealsServlet</servlet-name>
+        <url-pattern>/CRUDmealsServlet</url-pattern>
+    </servlet-mapping>
 
 </web-app>

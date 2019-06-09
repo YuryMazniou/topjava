@@ -12,14 +12,13 @@ public class Meal {
 
     private final int calories;
 
-    private static AtomicInteger count=new AtomicInteger(0);
-    private int countMeal;
+    private final int id;
 
-    public Meal(LocalDateTime dateTime, String description, int calories) {
+    public Meal(int id,LocalDateTime dateTime, String description, int calories) {
+        this.id=id;
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
-        countMeal=count.getAndIncrement();
     }
 
     public LocalDateTime getDateTime() {
@@ -42,7 +41,7 @@ public class Meal {
         return dateTime.toLocalTime();
     }
 
-    public int getCountMeal() {
-        return countMeal;
+    public int getId() {
+        return id;
     }
 }
