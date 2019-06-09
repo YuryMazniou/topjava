@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.dao;
 
+import ru.javawebinar.topjava.dao.mock.StorageMeals;
 import ru.javawebinar.topjava.model.Meal;
 
 import java.time.LocalDateTime;

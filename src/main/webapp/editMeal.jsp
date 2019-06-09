@@ -4,6 +4,12 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+        .td{
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
 <table border="5">
@@ -19,17 +25,23 @@
             <td><fmt:formatDate pattern="dd.MM.yyyy" value="${ parsedDateTime }" /></td>
             <td>${num.description}</td>
             <td>${num.calories}</td>
-            <td><a href="CRUDmealsServlet">Back to List of Meals</a></td>
+            <td><form method="get" action="CRUDmealsServlet"><input type="submit" value="Back"></form></td>
         </tr>
     </c:forEach>
     <tr>
         <form method="post" action="CRUDmealsServlet">
             <c:forEach var="num" items="${list}">
             <input type="hidden" name="ID" value="<c:out value="${num.id}"/>">
-            <td><input type="datetime-local" name="date" required></td>
-            <td><input type="text" name="nameMeal" pattern="[А-Яа-я]+" required></td>
-            <td><input type="text" name="calories" pattern="^[0-9]+$" required></td>
-            <td><input type="submit" value="Отправить"></td>
+            <td align="center"><input type="datetime-local" name="date" required></td>
+            <td align="center">
+                <select name="nameMeal" required>
+                <option value="Завтрак">Завтрак</option>
+                <option value="Обед">Обед</option>
+                <option value="Ужин">Ужин</option>
+                </select>
+            </td>
+            <td><input type="text" name="calories" pattern="^[0-9]{1,3}$" required></td>
+            <td><input type="submit" value="Enter"></td>
             </c:forEach>
         </form>
     </tr>

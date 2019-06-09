@@ -3,7 +3,6 @@ package ru.javawebinar.topjava.web;
 import org.slf4j.Logger;
 import ru.javawebinar.topjava.dao.InterfaceForDao;
 import ru.javawebinar.topjava.dao.Interfacies;
-import ru.javawebinar.topjava.dao.StorageMeals;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.MealTo;
 import ru.javawebinar.topjava.util.MealsUtil;
@@ -26,7 +25,7 @@ public class MealServlet extends HttpServlet {
         log.debug("redirect to meal");
         req.setCharacterEncoding("UTF-8");
         List<Meal> meals = storage.getListOfMeals();
-        List <MealTo>list = MealsUtil.getFilteredWithExcess(meals, LocalTime.of(0, 0), LocalTime.of(23, 59), 2000);
+        List <MealTo>list = MealsUtil.getFilteredWithExcess(meals, LocalTime.MIN, LocalTime.MAX, 2000);
         req.setAttribute("list",list);
         req.getRequestDispatcher("/meals.jsp").forward(req,resp);
     }

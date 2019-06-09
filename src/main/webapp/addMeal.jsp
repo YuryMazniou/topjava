@@ -16,9 +16,15 @@
     <tr>
         <form method="post" action="CRUDmealsServlet">
             <td><input type="datetime-local" name="date" required></td>
-            <td><input type="text" name="nameMeal"pattern="[А-Яа-я]+" required></td>
+            <td>
+                <select name="nameMeal" required>
+                    <option value="Завтрак">Завтрак</option>
+                    <option value="Обед">Обед</option>
+                    <option value="Ужин">Ужин</option>
+                </select>
+            </td>
             <td><input type="text" name="calories" required></td>
-            <td><input type="submit" value="Отправить"></td>
+            <td><input type="submit" value="Enter"></td>
         </form>
     </tr>
 </table>
