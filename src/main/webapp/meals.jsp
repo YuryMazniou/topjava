@@ -17,24 +17,13 @@
         <td>Калории</td>
     </tr>
 <c:forEach var="num" items="${list}">
-    <c:if test="${num.excess==true}">
-        <tr align="center" bgcolor="red">
-            <td>${num.id}</td>
-            <fmt:parseDate value="${num.dateTime}" pattern="yyyy-MM-dd" var="parsedDateTime" type="date" />
-            <td><fmt:formatDate pattern="dd.MM.yyyy" value="${ parsedDateTime }" /></td>
-            <td>${num.description}</td>
-            <td>${num.calories}</td>
-        </tr>
-    </c:if>
-    <c:if test="${num.excess==false}">
-        <tr align="center">
-            <td>${num.id}</td>
-            <fmt:parseDate value="${num.dateTime}" pattern="yyyy-MM-dd" var="parsedDateTime" type="date" />
-            <td><fmt:formatDate pattern="dd.MM.yyyy" value="${ parsedDateTime }" /></td>
-            <td>${num.description}</td>
-            <td>${num.calories}</td>
-        </tr>
-    </c:if>
+    <tr align="center" bgcolor="${num.excess?'red':'green'}">
+        <td>${num.id}</td>
+        <fmt:parseDate value="${num.dateTime}" pattern="yyyy-MM-dd" var="parsedDateTime" type="date" />
+        <td><fmt:formatDate pattern="dd.MM.yyyy" value="${ parsedDateTime }" /></td>
+        <td>${num.description}</td>
+        <td>${num.calories}</td>
+    </tr>
 </c:forEach>
 </table>
 </body>

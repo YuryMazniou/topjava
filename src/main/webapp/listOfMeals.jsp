@@ -25,11 +25,11 @@
             <td><fmt:formatDate pattern="dd.MM.yyyy" value="${ parsedDateTime }" /></td>
             <td>${num.description}</td>
             <td>${num.calories}</td>
-            <td><a href="CRUDmealsServlet?action=edit&userId=<c:out value="${num.id}"/>">Update</a></td>
-            <td><a href="CRUDmealsServlet?action=delete&userId=<c:out value="${num.id}"/>">Delete</a></td>
+            <td><a href="MealsServletRefactor?action=edit&userId=<c:out value="${num.id}"/>">Update</a></td>
+            <td><a href="MealsServletRefactor?action=delete&userId=<c:out value="${num.id}"/>">Delete</a></td>
         </tr>
     </c:forEach>
 </table>
-<p><a href="CRUDmealsServlet?action=insert">Add User</a></p>
+<p><a href="MealsServletRefactor?action=insert">Add User</a></p>
 </body>
 </html>

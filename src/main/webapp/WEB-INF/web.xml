@@ -26,7 +26,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>cruDmealsServlet</servlet-name>
-        <servlet-class>ru.javawebinar.topjava.web.CRUDmealsServlet</servlet-class>
+        <servlet-class>ru.javawebinar.topjava.web.MealsServletRefactor</servlet-class>
         <load-on-startup>0</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -35,12 +35,12 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>mealsServlet</servlet-name>
-        <servlet-class>ru.javawebinar.topjava.web.CRUDmealsServlet</servlet-class>
+        <servlet-class>ru.javawebinar.topjava.web.MealsServletRefactor</servlet-class>
         <load-on-startup>0</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>mealsServlet</servlet-name>
-        <url-pattern>/CRUDmealsServlet</url-pattern>
+        <url-pattern>/MealsServletRefactor</url-pattern>
     </servlet-mapping>
 
 </web-app>

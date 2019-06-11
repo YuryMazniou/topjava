@@ -15,16 +15,16 @@ import java.util.Collections;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-public class CRUDmealsServlet extends HttpServlet {
+public class MealsServletRefactor extends HttpServlet {
     private static final Logger log = getLogger(MealServlet.class);
     private static Interfacies inter=new InterfaceForDao();
     private static String LIST_USER = "/listOfMeals.jsp";
-    private static String EDIT = "/editMeal.jsp";
-    private static String ADD = "/addMeal.jsp";
+    private static String EDIT = "/editOrAddMeal.jsp";
     public static final DateTimeFormatter FORMATTER=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.debug("redirect GET to CrudMeals");
+        log.debug("redirect GET to MealsServletRefactor");
         req.setCharacterEncoding("UTF-8");
         String forward="";
         String action = req.getParameter("action");
@@ -40,15 +40,16 @@ public class CRUDmealsServlet extends HttpServlet {
             forward = EDIT;
             int userId = Integer.parseInt(req.getParameter("userId"));
             Meal meal = inter.getMeal(userId);
+            req.setAttribute("isAddUser",true);
             req.setAttribute("list", Collections.singletonList(meal));
         } else {
-            forward = ADD;
+            forward=EDIT;
         }
         req.getRequestDispatcher(forward).forward(req,resp);
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.debug("redirect POST to CrudMeals");
+        log.debug("redirect POST to MealsServletRefactor");
         req.setCharacterEncoding("UTF-8");
         String i=req.getParameter("ID");
         String description=req.getParameter("nameMeal");
