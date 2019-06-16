@@ -29,7 +29,7 @@ public class MealServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String idU=request.getParameter("num");
+        String idU=request.getParameter("number");
         if(idU!=null){
             int userId=Integer.parseInt(idU);
             SecurityUtil.setAuthUserId(userId);

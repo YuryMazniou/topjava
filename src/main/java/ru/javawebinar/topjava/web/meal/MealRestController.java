@@ -16,6 +16,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -57,14 +59,24 @@ public class MealRestController {
     }
     public void getListOfPartsWithFilter(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         log.info("getAll and Filter");
+        List<String>listDateAndTime=new ArrayList<>();
+        listDateAndTime.add(request.getParameter("afterDate"));
+        listDateAndTime.add(request.getParameter("beforeDate"));
+        listDateAndTime.add(request.getParameter("afterTime"));
+        listDateAndTime.add(request.getParameter("beforeTime"));
         String line;
-        line=request.getParameter("afterDate");
-        LocalDate startDate=(line==null?LocalDate.MIN:LocalDate.parse(line));
-        LocalDate endDate=LocalDate.parse(request.getParameter("beforeDate"));
-        LocalTime startTime=LocalTime.parse(request.getParameter("afterTime"));
-        LocalTime endTime=LocalTime.parse(request.getParameter("beforeTime"));
+        line=listDateAndTime.get(0);
+        LocalDate startDate=(line.isEmpty()?LocalDate.MIN:LocalDate.parse(line));
+        line=listDateAndTime.get(1);;
+        LocalDate endDate=(line.isEmpty()?LocalDate.MAX:LocalDate.parse(line));
+        line=listDateAndTime.get(2);;
+        LocalTime startTime=(line.isEmpty()?LocalTime.MIN:LocalTime.parse(line));
+        line=listDateAndTime.get(3);;
+        LocalTime endTime=(line.isEmpty()?LocalTime.MAX:LocalTime.parse(line));
+
         request.setAttribute("meals",MealsUtil.getFilteredWithExcess(service.getAll(SecurityUtil.authUserId()),
                 MealsUtil.DEFAULT_CALORIES_PER_DAY,startTime,endTime,startDate,endDate));
+        request.setAttribute("listDateAndTime",listDateAndTime);
         request.getRequestDispatcher("/meals.jsp").forward(request, response);
     }
 

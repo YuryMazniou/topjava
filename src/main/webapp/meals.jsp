@@ -34,11 +34,12 @@
         </tr>
         <form method="get" action="meals">
             <tr>
+                <c:set var="dateTime" value="${listDateAndTime}"/>
                 <input type="hidden" name="action" value="filter">
-                <th><input type="date" name="afterDate"></th>
-                <th><input type="date" name="beforeDate"></th>
-                <th><input type="time" name="afterTime"></th>
-                <th><input type="time" name="beforeTime"></th>
+                <th><input type="date" name="afterDate" value="${dateTime.get(0)}"></th>
+                <th><input type="date" name="beforeDate" value="${dateTime.get(1)}"></th>
+                <th><input type="time" name="afterTime" value="${dateTime.get(2)}"></th>
+                <th><input type="time" name="beforeTime" value="${dateTime.get(3)}"></th>
                 <th><button type="submit" >Отфильтровать</button></th>
             </tr>
         </form>
