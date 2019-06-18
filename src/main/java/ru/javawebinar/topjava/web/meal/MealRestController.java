@@ -54,7 +54,7 @@ public class MealRestController {
     public void getListOfPart(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         log.info("getAll");
         request.setAttribute("meals",
-                MealsUtil.getWithExcess(service.getAll(SecurityUtil.authUserId()), MealsUtil.DEFAULT_CALORIES_PER_DAY));
+                MealsUtil.getWithExcess(service.getAll(SecurityUtil.authUserId(),LocalDate.MIN,LocalDate.MAX), MealsUtil.DEFAULT_CALORIES_PER_DAY));
         request.getRequestDispatcher("/meals.jsp").forward(request, response);
     }
     public void getListOfPartsWithFilter(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
@@ -74,8 +74,8 @@ public class MealRestController {
         line=listDateAndTime.get(3);;
         LocalTime endTime=(line.isEmpty()?LocalTime.MAX:LocalTime.parse(line));
 
-        request.setAttribute("meals",MealsUtil.getFilteredWithExcess(service.getAll(SecurityUtil.authUserId()),
-                MealsUtil.DEFAULT_CALORIES_PER_DAY,startTime,endTime,startDate,endDate));
+        request.setAttribute("meals",MealsUtil.getFilteredWithExcess(service.getAll(SecurityUtil.authUserId(),startDate,endDate),
+                MealsUtil.DEFAULT_CALORIES_PER_DAY,startTime,endTime));
         request.setAttribute("listDateAndTime",listDateAndTime);
         request.getRequestDispatcher("/meals.jsp").forward(request, response);
     }
