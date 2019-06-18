@@ -28,7 +28,6 @@ public class MealRestController {
     private static final Logger log = getLogger(MealRestController.class);
     private MealService service;
 
-    @Autowired
     public MealRestController(MealService service) {
         this.service = service;
     }
