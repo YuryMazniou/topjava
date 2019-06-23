@@ -30,9 +30,12 @@ CREATE SEQUENCE global_seq_for_meal START WITH 1;
 
 CREATE TABLE meals
 (
-   id            INTEGER     PRIMARY KEY   DEFAULT nextval('global_seq_for_meal'),
+   id            INTEGER  PRIMARY KEY      DEFAULT nextval('global_seq_for_meal'),
    id_user       INTEGER                   NOT NULL ,
    dateTime      TIMESTAMP                 NOT NULL,
    description   VARCHAR                   NOT NULL ,
    calories      INTEGER                   NOT NULL
 );
+
+CREATE INDEX ind_id ON meals(id_user);
+CREATE UNIQUE INDEX ind_date ON meals(dateTime)

@@ -63,21 +63,20 @@ public class MealServiceTest {
 
     @Test
     public void getBetweenDateTimes() {
-        List<Meal>test=service.getBetweenDateTimes(LocalDateTime.of(2015,Month.MAY,30,9,0,0)
-                ,LocalDateTime.of(2015,Month.MAY,30,11,0,0),USER_ID);
-        assertMatch(test,MEAL1);
+        assertMatch(service.getBetweenDateTimes(LocalDateTime.of(2015,Month.MAY,30,9,0,0)
+                ,LocalDateTime.of(2015,Month.MAY,30,11,0,0),USER_ID), MEAL1);
     }
 
     @Test
     public void getAll() {
-        List<Meal>test=service.getAll(USER_ID);
-        assertMatch(test,MEAL2,MEAL3,MEAL1);
+        assertMatch(service.getAll(ADMIN_ID),MEAL5,MEAL6,MEAL4);
     }
 
     @Test
     public void update() {
         Meal mealUpdate=new Meal(MEAL1);
         mealUpdate.setDescription("dinner");
+        mealUpdate.setDateTime(LocalDateTime.of(2015, Month.JUNE,1,10,0,0));
         mealUpdate.setCalories(1);
         service.update(mealUpdate,USER_ID);
         assertMatch(service.get(1,USER_ID),mealUpdate);
@@ -89,7 +88,7 @@ public class MealServiceTest {
     }
     @Test
     public void create() {
-        Meal meal=new Meal(null, LocalDateTime.of(2015, Month.MAY,31,10,00,00),"обед",1000);
+        Meal meal=new Meal(null, LocalDateTime.of(2015, Month.JUNE,1,10,0,0),"обед",1000);
         Meal createMeal=service.create(meal,USER_ID);
         meal.setId(createMeal.getId());
         assertMatch(service.getAll(USER_ID),meal,MEAL2,MEAL3,MEAL1);
