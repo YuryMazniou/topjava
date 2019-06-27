@@ -1,4 +1,5 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/63f08a19fc92430ab0f688804d4d47a6)](https://www.codacy.com/app/YuryMazniou/topjava?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=YuryMazniou/topjava&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.com/YuryMazniou/topjava.svg?branch=master)](https://travis-ci.com/YuryMazniou/topjava)
 
 Java Enterprise Online Project
 ===============================
