@@ -6,4 +6,4 @@ exclude_paths:
   - 'graduation.md'
   - 'description.md'
   - 'cv.md'
-  - 'doc'
+  - 'doc/**'
