@@ -1,8 +1,11 @@
 package ru.javawebinar.topjava.service;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
-import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
@@ -13,7 +16,6 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.List;
 
 import static ru.javawebinar.topjava.MealTestData.*;
 import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
@@ -26,6 +28,37 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class MealServiceTest {
+    @Rule
+    public TestWatcher watcher=new TestWatcher() {
+        private long start;
+        @Override
+        protected void succeeded(Description description) {
+            System.out.println("---------------------------------");
+            System.out.println("Test success");
+        }
+
+        @Override
+        protected void failed(Throwable e, Description description) {
+            System.out.println("Test failed : "+e);
+            System.out.println(String.format("Test method \"%s\" duration: %f sec",description.getMethodName()
+                    ,(System.currentTimeMillis()-start)/1000.0));
+            System.out.println("---------------------------------");
+        }
+
+        @Override
+        protected void starting(Description description) {
+            start=System.currentTimeMillis();
+        }
+
+        @Override
+        protected void finished(Description description) {
+            System.out.println(String.format("Test method \"%s\" duration: %f sec",description.getMethodName()
+                    ,(System.currentTimeMillis()-start)/1000.0));
+            System.out.println("---------------------------------");
+        }
+    };
+    @Rule
+    public final ExpectedException thrown = ExpectedException.none();
 
     @Autowired
     private MealService service;
@@ -38,6 +71,12 @@ public class MealServiceTest {
 
     @Test(expected = NotFoundException.class)
     public void deleteNotFound() throws Exception {
+        service.delete(1, USER_ID);
+    }
+
+    @Test
+    public void deleteNotFoundCheckRule(){
+        thrown.expect(NotFoundException.class);
         service.delete(1, USER_ID);
     }
 
