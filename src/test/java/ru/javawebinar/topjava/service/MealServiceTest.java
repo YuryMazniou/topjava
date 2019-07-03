@@ -6,6 +6,8 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
@@ -28,21 +30,20 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class MealServiceTest {
+    private static final Logger log = LoggerFactory.getLogger(MealServiceTest.class);
+    private long start;
+    private double lasted;
+    private String resultTest;
     @Rule
     public TestWatcher watcher=new TestWatcher() {
-        private long start;
         @Override
         protected void succeeded(Description description) {
-            System.out.println("---------------------------------");
-            System.out.println("Test success");
+            resultTest="success";
         }
 
         @Override
         protected void failed(Throwable e, Description description) {
-            System.out.println("Test failed : "+e);
-            System.out.println(String.format("Test method \"%s\" duration: %f sec",description.getMethodName()
-                    ,(System.currentTimeMillis()-start)/1000.0));
-            System.out.println("---------------------------------");
+            resultTest="failed";
         }
 
         @Override
@@ -52,11 +53,23 @@ public class MealServiceTest {
 
         @Override
         protected void finished(Description description) {
-            System.out.println(String.format("Test method \"%s\" duration: %f sec",description.getMethodName()
-                    ,(System.currentTimeMillis()-start)/1000.0));
-            System.out.println("---------------------------------");
+            long finish=System.currentTimeMillis();
+            lasted=(finish-start)/1000.0;
+            log.info("Test \"{}\" {} , lasted for {} sec",description.getMethodName(),resultTest,lasted);
+            mapTimeTests.put(description.getMethodName(),lasted);
+            if(mapTimeTests.size()==12) {
+                printTestInfo();
+            }
         }
     };
+    public void printTestInfo(){
+        System.out.println("----------------------------------");
+        mapTimeTests
+                .forEach((key, value) -> System.out.println(String.format("Test method \"%s\" duration: %f sec", key
+                        , value)));
+        System.out.println("----------------------------------");
+    }
+
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
 
