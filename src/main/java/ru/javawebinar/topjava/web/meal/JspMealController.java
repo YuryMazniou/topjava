@@ -22,7 +22,6 @@ import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 
 @Controller
 public class JspMealController extends AbstractMealController {
-    private static final Logger log = LoggerFactory.getLogger(JspMealController.class);
 
     private final MealService service;
 
@@ -83,5 +82,4 @@ public class JspMealController extends AbstractMealController {
         }
         return "redirect:/meals";
     }
-
 }

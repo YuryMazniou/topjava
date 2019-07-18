@@ -52,13 +52,15 @@ public class JdbcUserRepository implements UserRepository {
         if (user.isNew()) {
             Number newKey = insertUser.executeAndReturnKey(parameterSource);
             saveRole(new ArrayList<>(user.getRoles()), newKey.intValue());
-            user=get(newKey.intValue());
+            return get(newKey.intValue());
         } else if (namedParameterJdbcTemplate.update(
                 "UPDATE users SET name=:name, email=:email, password=:password, " +
-                        "registered=:registered, enabled=:enabled, calories_per_day=:caloriesPerDay WHERE id=:id", parameterSource) == 0) {
-            return null;
+                        "registered=:registered, enabled=:enabled, calories_per_day=:caloriesPerDay WHERE id=:id", parameterSource) != 0) {
+            deleteRoles(user.getId());
+            saveRole(new ArrayList<>(user.getRoles()), user.getId());
+            return get(user.getId());
         }
-        return user;
+        return null;
     }
 
     @Override
@@ -95,7 +97,6 @@ public class JdbcUserRepository implements UserRepository {
                 while (rs.next()){
                     int id=rs.getInt("id");
                     String name=rs.getString("name");
-                    System.out.println(name);
                     String email=rs.getString("email");
                     String password=rs.getString("password");
                     int calor=rs.getInt("calories_per_day");
@@ -121,7 +122,6 @@ public class JdbcUserRepository implements UserRepository {
     private void saveRole(final List<Role>roles,int idUser){
         String sqlRole="INSERT INTO user_roles (user_id,role) VALUES (?,?)";
         jdbcTemplate.batchUpdate(sqlRole, new BatchPreparedStatementSetter() {
-
             @Override
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 Role role = roles.get(i);
@@ -134,5 +134,8 @@ public class JdbcUserRepository implements UserRepository {
                 return roles.size();
             }
         });
+    }
+    private void deleteRoles(int idUser){
+        jdbcTemplate.update("DELETE FROM user_roles WHERE user_id=?", idUser);
     }
 }
