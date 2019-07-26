@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava;
 
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.to.MealTo;
 
 import java.time.Month;
 import java.util.List;
@@ -22,7 +23,15 @@ public class MealTestData {
     public static final Meal ADMIN_MEAL1 = new Meal(ADMIN_MEAL_ID, of(2015, Month.JUNE, 1, 14, 0), "Админ ланч", 510);
     public static final Meal ADMIN_MEAL2 = new Meal(ADMIN_MEAL_ID + 1, of(2015, Month.JUNE, 1, 21, 0), "Админ ужин", 1500);
 
+    public static final MealTo MEAL_TO6=new MealTo(MEAL1_ID + 5, of(2015, Month.MAY, 31, 20, 0), "Ужин", 510,true);
+    public static final MealTo MEAL_TO5=new MealTo(MEAL1_ID + 4, of(2015, Month.MAY, 31, 13, 0), "Обед", 1000,true);
+    public static final MealTo MEAL_TO4=new MealTo(MEAL1_ID + 3, of(2015, Month.MAY, 31, 10, 0), "Завтрак", 500,true);
+    public static final MealTo MEAL_TO3=new MealTo(MEAL1_ID + 2, of(2015, Month.MAY, 30, 20, 0), "Ужин", 500,false);
+    public static final MealTo MEAL_TO2=new MealTo(MEAL1_ID + 1, of(2015, Month.MAY, 30, 13, 0), "Обед", 1000,false);
+    public static final MealTo MEAL_TO1=new MealTo(MEAL1_ID, of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500,false);
+
     public static final List<Meal> MEALS = List.of(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1);
+    public static final List<MealTo>MEALS_TO=List.of(MEAL_TO6,MEAL_TO5,MEAL_TO4,MEAL_TO3,MEAL_TO2,MEAL_TO1);
 
     public static Meal getCreated() {
         return new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Созданный ужин", 300);
@@ -42,5 +51,8 @@ public class MealTestData {
 
     public static void assertMatch(Iterable<Meal> actual, Iterable<Meal> expected) {
         assertThat(actual).usingElementComparatorIgnoringFields("user").isEqualTo(expected);
+    }
+    public static void assertMatchMealTo(Iterable<MealTo> actual, Iterable<MealTo> expected) {
+        assertThat(actual).usingFieldByFieldElementComparator().isEqualTo(expected);
     }
 }
