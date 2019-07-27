@@ -10,9 +10,6 @@ cache:
 services:
   - postgresql
 
-#addons:
- # postgresql: '9.6'
-
 # https://docs.travis-ci.com/user/database-setup/#PostgreSQL
 before_script:
 - psql -c 'create database topjava' -U postgres
