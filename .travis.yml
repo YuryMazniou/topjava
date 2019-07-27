@@ -10,8 +10,8 @@ cache:
 services:
   - postgresql
 
-addons:
-  postgresql: '9.6'
+#addons:
+ # postgresql: '9.6'
 
 # https://docs.travis-ci.com/user/database-setup/#PostgreSQL
 before_script:
