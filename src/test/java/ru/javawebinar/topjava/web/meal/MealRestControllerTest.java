@@ -27,7 +27,7 @@ class MealRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getTest() throws Exception{
-        mockMvc.perform(get(REST_URL+MEAL1_ID))
+        mockMvc.perform(get(REST_URL+"get/"+MEAL1_ID))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(contentJson(MEAL1));
@@ -35,7 +35,7 @@ class MealRestControllerTest extends AbstractControllerTest {
 
     @Test
     void deleteTest() throws Exception{
-        mockMvc.perform(delete(REST_URL + MEAL1_ID))
+        mockMvc.perform(delete(REST_URL+"delete/" + MEAL1_ID))
                 .andDo(print())
                 .andExpect(status().isNoContent());
         assertMatch(mealService.getAll(100000),MEAL6, MEAL5, MEAL4, MEAL3, MEAL2);
@@ -46,7 +46,7 @@ class MealRestControllerTest extends AbstractControllerTest {
         Meal updated = getUpdated();
         updated.setDescription("UpdatedName");
         updated.setCalories(11);
-        mockMvc.perform(put(REST_URL + MEAL1_ID)
+        mockMvc.perform(put(REST_URL +"update/"+ MEAL1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());
@@ -56,7 +56,7 @@ class MealRestControllerTest extends AbstractControllerTest {
     @Test
     void createWithLocation() throws Exception {
         Meal expected = getCreated();
-        ResultActions action = mockMvc.perform(post(REST_URL)
+        ResultActions action = mockMvc.perform(post(REST_URL+"create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(expected)))
                 .andExpect(status().isCreated());
