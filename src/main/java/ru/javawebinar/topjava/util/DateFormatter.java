@@ -1,18 +1,23 @@
 package ru.javawebinar.topjava.util;
 
+import org.springframework.format.Formatter;
+import org.springframework.util.StringUtils;
+
+import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
-public class DateFormatter {
+public class DateFormatter implements Formatter<LocalDate> {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
-    public static LocalDate parseDate(String date){
-        return date.equals(" ")?null:LocalDate.parse(date,DATE_FORMATTER);
+    @Override
+    public LocalDate parse(String text, Locale locale) throws ParseException {
+        return StringUtils.isEmpty(text) ?null:LocalDate.parse(text,DATE_FORMATTER);
     }
 
-    public static LocalTime parseTime(String time){
-        return time.equals(" ")?null:LocalTime.parse(time,TIME_FORMATTER);
+    @Override
+    public String print(LocalDate object, Locale locale) {
+        return null;
     }
 }
