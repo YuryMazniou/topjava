@@ -57,4 +57,11 @@ public class UserService {
     public User getWithMeals(int id){
         return checkNotFoundWithId(repository.getWithMeals(id), id);
     }
+
+    @CacheEvict(value = "users", allEntries = true)
+    public void enableUser(int user_id,boolean bol){
+        User user=get(user_id);
+        user.setEnabled(bol);
+        repository.save(user);
+    }
 }
