@@ -73,6 +73,15 @@ public class UserService {
         repository.save(user);  // !! need only for JDBC implementation
     }
 
+    @Override
+    public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = repository.getByEmail(email.toLowerCase());
+        if (user == null) {
+            throw new UsernameNotFoundException("User " + email + " is not found");
+        }
+        return new AuthorizedUser(user);
+    }
+
     public User getWithMeals(int id){
         return checkNotFoundWithId(repository.getWithMeals(id), id);
     }
