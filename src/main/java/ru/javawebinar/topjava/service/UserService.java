@@ -88,7 +88,7 @@ public class UserService implements UserDetailsService {
         return new AuthorizedUser(user);
     }
 
-    public User getWithMeals(int id){
+    public User getWithMeals(int id) {
         return checkNotFoundWithId(repository.getWithMeals(id), id);
     }
 }
