@@ -13,6 +13,25 @@ function clearFilter() {
     $.get(mealAjaxUrl, updateTableByData);
 }
 
+function datepicker(){
+    $('#startDate,#endDate').datetimepicker({
+        timepicker:false,
+        format:'Y-m-d'
+    })
+}
+function timepicker(){
+    $('#startTime,#endTime').datetimepicker({
+        datepicker:false,
+        format:'H:i'
+    })
+}
+
+function datetimepicker(){
+    $('#dateTime').datetimepicker({
+        format:'Y-m-d H:i'
+    })
+}
+
 $(function () {
     makeEditable({
         ajaxUrl: mealAjaxUrl,
