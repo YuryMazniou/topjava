@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class MealTo extends BaseTo {
     @NotNull
-    @DateTimeFormat
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime dateTime;
 
     @NotBlank
