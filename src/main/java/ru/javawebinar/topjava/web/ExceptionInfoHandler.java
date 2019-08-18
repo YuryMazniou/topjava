@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.web;
 
+import org.postgresql.util.PSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
@@ -39,7 +40,11 @@ public class ExceptionInfoHandler {
     @ResponseStatus(value = HttpStatus.CONFLICT)  // 409
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ErrorInfo conflict(HttpServletRequest req, DataIntegrityViolationException e) {
-        return logAndGetErrorInfo(req, e, true, DATA_ERROR);
+        Throwable rootCause = ValidationUtil.getRootCause(e);
+        log.error(DATA_ERROR + " at request " + req.getRequestURL(), rootCause);
+        if(rootCause.toString().contains("users_unique_email_idx"))return new ErrorInfo(req.getRequestURL(), DATA_ERROR, "User with this email already exists");
+        if(rootCause.toString().contains("meals_unique_user_datetime_idx"))return new ErrorInfo(req.getRequestURL(), DATA_ERROR, "Meal with these Date and Time already exists");
+        return new ErrorInfo(req.getRequestURL(), DATA_ERROR, rootCause.toString());
     }
 
     @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)  // 422
